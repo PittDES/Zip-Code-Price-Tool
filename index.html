@@ -1,189 +1,382 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZIP Code Price Lookup</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 50px;
-            text-align: center;
-        }
-        input {
-            padding: 10px;
-            font-size: 16px;
-            width: 200px;
-            margin-bottom: 10px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        #result {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #333;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ Better SEO title: include intent keywords -->
+  <title>Zip Code Price Tool | Residential Verbal Evaluation Pricing by ZIP</title>
+
+  <!-- ✅ Meta description: clear benefit + what it is -->
+  <meta name="description" content="Instantly look up Residential Verbal Evaluation pricing by ZIP code. See discounted Zelle/Check pricing and learn how ZIP-based pricing works." />
+
+  <!-- ✅ Canonical -->
+  <link rel="canonical" href="https://pittdes.github.io/Zip-Code-Price-Tool/" />
+
+  <!-- ✅ Social previews -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Zip Code Price Tool" />
+  <meta property="og:description" content="Look up Residential Verbal Evaluation pricing by ZIP code. Fast, simple, and transparent." />
+  <meta property="og:url" content="https://pittdes.github.io/Zip-Code-Price-Tool/" />
+  <!-- Optional if you add an image at /assets/og.png -->
+  <!-- <meta property="og:image" content="https://pittdes.github.io/Zip-Code-Price-Tool/assets/og.png" /> -->
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Zip Code Price Tool" />
+  <meta name="twitter:description" content="Look up Residential Verbal Evaluation pricing by ZIP code. Fast, simple, and transparent." />
+  <!-- <meta name="twitter:image" content="https://pittdes.github.io/Zip-Code-Price-Tool/assets/og.png" /> -->
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 50px;
+      text-align: center;
+      line-height: 1.5;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      width: 220px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+      min-height: 28px;
+    }
+
+    /* ✅ Simple content styling (helps readability + SEO text sections) */
+    .content {
+      max-width: 820px;
+      margin: 40px auto 0;
+      text-align: left;
+    }
+    .content h2, .content h3 {
+      text-align: left;
+      margin-top: 28px;
+    }
+    details {
+      margin: 10px 0;
+      text-align: left;
+    }
+    summary {
+      cursor: pointer;
+    }
+    .muted {
+      color: #555;
+      font-size: 14px;
+    }
+    .cta {
+      margin-top: 10px;
+      font-size: 15px;
+    }
+  </style>
 </head>
+
 <body>
+  <header>
     <h1>ZIP Code Price Lookup</h1>
-    <p>Enter your ZIP code to see the price for Residential VERBAL EVALUATION (Written report available for additional charges) Price shown is a discounted price for Zelle or Check Payment..</p>
-    <input type="text" id="zipCode" placeholder="Enter ZIP code">
-    <button onclick="lookupPrice()">Get Price</button>
-    <p id="result"></p>
+    <p>
+      Enter your ZIP code to see the price for <strong>Residential VERBAL EVALUATION</strong>
+      (Written report available for additional charges).
+      Price shown is a discounted price for <strong>Zelle</strong> or <strong>Check</strong> payment.
+    </p>
 
-    <script>
-        // Predefined ZIP code to price mapping
-        const prices = {
-            "15241": "$400 for Upper St Clair Residents Only",
-			"15031": "$450",
-			"15057": "$450",
-			"15064": "$450",
-			"15102": "$450",
-			"15106": "$450",
-			"15108": "$450",
-			"15126": "$450",
-			"15129": "$450",
-			"15136": "$450",
-			"15142": "$450",
-			"15201": "$450",
-			"15204": "$450",
-			"15205": "$450",
-			"15206": "$450",
-			"15207": "$475",
-			"15210": "$450",
-			"15211": "$450",
-			"15212": "$450",
-			"15213": "$450",
-			"15216": "$450",
-			"15217": "$475",
-			"15219": "$450",
-			"15220": "$450",
-			"15222": "$450",
-			"15224": "$450",
-			"15226": "$450",
-			"15227": "$450",
-			"15232": "$475",
-			"15233": "$450",
-			"15234": "$450",
-			"15236": "$450",
-			"15290": "$450",
-          	"15317": "$450",
-			"15321": "$450",
-			"15340": "$450",
-			"15342": "$450",
-			"15347": "$450",
-			"15350": "$450",
-			"15361": "$450",
-			"15367": "$450",
-			"15378": "$450",
-			"15015": "$500",
-			"15021": "$500",
-			"15025": "$500",
-			"15026": "$500",
-			"15045": "$500",
-			"15063": "$500",
-			"15090": "$500",
-			"15101": "$500",
-			"15104": "$500",
-			"15110": "$500",
-			"15112": "$500",
-			"15116": "$500",
-			"15120": "$500",
-			"15122": "$500",
-			"15132": "$500",
-			"15139": "$500",
-			"15143": "$500",
-			"15145": "$500",
-			"15146": "$500",
-			"15147": "$500",
-			"15202": "$500",
-			"15208": "$500",
-			"15209": "$500",
-			"15214": "$500",
-			"15215": "$500",
-			"15218": "$500",
-			"15221": "$500",
-			"15229": "$500",
-			"15223": "$500",
-			"15235": "$500",
-			"15237": "$500",
-			"15238": "$500",
-			"15301": "$500",
-			"15330": "$525",
-			"15001": "$550",
-			"15003": "$550",
-			"15022": "$550",
-			"15024": "$550",
-			"15035": "$550",
-			"15044": "$550",
-			"15085": "$550",
-			"15131": "$550",
-			"15137": "$550",
-			"15140": "$550",
-			"15148": "$550",
-			"15239": "$550",
-			"15632": "$550",
-			"15668": "$550",
-			"16046": "$550",
-			"15005": "$600",
-			"15009": "$600",
-			"15010": "$600",
-			"15012": "$600",
-			"15068": "$600",
-			"15069": "$600",
-			"15076": "$600",
-			"15636": "$600",
-			"15642": "$600",
-			"16063": "$600",
-			"16059": "$600",
-			"16066": "$600",
-			"15014": "$650",
-			"15065": "$650",
-			"15084": "$650",
-			"16117": "$650",
-			"16001": "$700",
-			"16002": "$700",
-			"16053": "$700",
-			"16101": "$700",
-			"16105": "$700",
-			"15089": "$750",
-			"15656": "$750",
-			"15690": "$750",
-			"15425": "$1000",
-        };
+    <!-- ✅ Natural link to your main site (replace URL) -->
+    <p class="cta">
+      Want the full details and how scheduling works?
+      <a href="YOUR_MAIN_SITE_URL" rel="noopener">Visit the main site</a>.
+    </p>
+  </header>
 
-        // Function to look up price
-        function lookupPrice() {
-            const zipCode = document.getElementById("zipCode").value.trim();
-            const price = prices[zipCode];
-            const resultElement = document.getElementById("result");
+  <main>
+    <!-- ✅ Accessibility + better UX -->
+    <label for="zipCode" class="muted">ZIP code</label><br />
+    <input
+      type="text"
+      id="zipCode"
+      placeholder="Enter ZIP code"
+      inputmode="numeric"
+      autocomplete="postal-code"
+      maxlength="5"
+      aria-label="Enter ZIP code"
+    />
+    <br />
+    <button id="lookupBtn" type="button">Get Price</button>
 
-            if (price) {
-                resultElement.innerText = `The price for ZIP code ${zipCode} is ${price}.`;
-            } else {
-                resultElement.innerText = "Price not available for this ZIP code. Text 412-677-0933 for your specific zip code price.";
-            }
+    <p id="result" role="status" aria-live="polite"></p>
+
+    <!-- ✅ SEO text blocks (Google needs crawlable content) -->
+    <section class="content" aria-label="Pricing explanation and FAQs">
+      <h2>What This Tool Does</h2>
+      <p>
+        This tool provides a fast way to estimate pricing by ZIP code for a Residential Verbal Evaluation.
+        ZIP-based pricing helps account for travel distance, time on site, and local market factors.
+      </p>
+
+      <h3>How to Use the Price Estimate</h3>
+      <ul>
+        <li><strong>Confirm service area:</strong> Enter your ZIP to see the base discounted price.</li>
+        <li><strong>Plan ahead:</strong> Use it as a baseline and confirm details when scheduling.</li>
+        <li><strong>Need a written report?</strong> Ask about written report pricing and turnaround time.</li>
+      </ul>
+
+      <h2>FAQ</h2>
+      <details>
+        <summary><strong>Is this the final price?</strong></summary>
+        <p>
+          This is the base discounted price for Zelle or Check payment for a Residential Verbal Evaluation in your ZIP code.
+          Additional services (like a written report) may have additional charges.
+        </p>
+      </details>
+
+      <details>
+        <summary><strong>What if my ZIP code isn’t listed?</strong></summary>
+        <p>
+          If pricing isn’t available for your ZIP code, text <strong>412-677-0933</strong> and you’ll receive the correct price.
+        </p>
+      </details>
+
+      <details>
+        <summary><strong>Why does pricing vary by ZIP code?</strong></summary>
+        <p>
+          ZIP pricing commonly reflects travel distance, time requirements, and local operating costs.
+          It also helps keep the process consistent and transparent.
+        </p>
+      </details>
+
+      <details>
+        <summary><strong>Do you offer a written report?</strong></summary>
+        <p>
+          Yes — a written report is available for an additional charge. Ask when scheduling for current pricing and timing.
+        </p>
+      </details>
+
+      <p class="muted">
+        Note: ZIP pricing is subject to change. Always confirm when scheduling.
+      </p>
+    </section>
+  </main>
+
+  <script>
+    // Predefined ZIP code to price mapping
+    const prices = {
+      "15241": "$400 for Upper St Clair Residents Only",
+      "15031": "$450",
+      "15057": "$450",
+      "15064": "$450",
+      "15102": "$450",
+      "15106": "$450",
+      "15108": "$450",
+      "15126": "$450",
+      "15129": "$450",
+      "15136": "$450",
+      "15142": "$450",
+      "15201": "$450",
+      "15204": "$450",
+      "15205": "$450",
+      "15206": "$450",
+      "15207": "$475",
+      "15210": "$450",
+      "15211": "$450",
+      "15212": "$450",
+      "15213": "$450",
+      "15216": "$450",
+      "15217": "$475",
+      "15219": "$450",
+      "15220": "$450",
+      "15222": "$450",
+      "15224": "$450",
+      "15226": "$450",
+      "15227": "$450",
+      "15232": "$475",
+      "15233": "$450",
+      "15234": "$450",
+      "15236": "$450",
+      "15290": "$450",
+      "15317": "$450",
+      "15321": "$450",
+      "15340": "$450",
+      "15342": "$450",
+      "15347": "$450",
+      "15350": "$450",
+      "15361": "$450",
+      "15367": "$450",
+      "15378": "$450",
+      "15015": "$500",
+      "15021": "$500",
+      "15025": "$500",
+      "15026": "$500",
+      "15045": "$500",
+      "15063": "$500",
+      "15090": "$500",
+      "15101": "$500",
+      "15104": "$500",
+      "15110": "$500",
+      "15112": "$500",
+      "15116": "$500",
+      "15120": "$500",
+      "15122": "$500",
+      "15132": "$500",
+      "15139": "$500",
+      "15143": "$500",
+      "15145": "$500",
+      "15146": "$500",
+      "15147": "$500",
+      "15202": "$500",
+      "15208": "$500",
+      "15209": "$500",
+      "15214": "$500",
+      "15215": "$500",
+      "15218": "$500",
+      "15221": "$500",
+      "15229": "$500",
+      "15223": "$500",
+      "15235": "$500",
+      "15237": "$500",
+      "15238": "$500",
+      "15301": "$500",
+      "15330": "$525",
+      "15001": "$550",
+      "15003": "$550",
+      "15022": "$550",
+      "15024": "$550",
+      "15035": "$550",
+      "15044": "$550",
+      "15085": "$550",
+      "15131": "$550",
+      "15137": "$550",
+      "15140": "$550",
+      "15148": "$550",
+      "15239": "$550",
+      "15632": "$550",
+      "15668": "$550",
+      "16046": "$550",
+      "15005": "$600",
+      "15009": "$600",
+      "15010": "$600",
+      "15012": "$600",
+      "15068": "$600",
+      "15069": "$600",
+      "15076": "$600",
+      "15636": "$600",
+      "15642": "$600",
+      "16063": "$600",
+      "16059": "$600",
+      "16066": "$600",
+      "15014": "$650",
+      "15065": "$650",
+      "15084": "$650",
+      "16117": "$650",
+      "16001": "$700",
+      "16002": "$700",
+      "16053": "$700",
+      "16101": "$700",
+      "16105": "$700",
+      "15089": "$750",
+      "15656": "$750",
+      "15690": "$750",
+      "15425": "$1000"
+    };
+
+    function normalizeZip(raw) {
+      // Keep only digits; take first 5
+      const digits = (raw || "").replace(/\D/g, "").slice(0, 5);
+      return digits;
+    }
+
+    function lookupPrice() {
+      const input = document.getElementById("zipCode");
+      const zipCode = normalizeZip(input.value);
+      input.value = zipCode;
+
+      const resultElement = document.getElementById("result");
+
+      if (zipCode.length !== 5) {
+        resultElement.innerText = "Please enter a valid 5-digit ZIP code.";
+        return;
+      }
+
+      const price = prices[zipCode];
+
+      if (price) {
+        resultElement.innerText = `The price for ZIP code ${zipCode} is ${price}.`;
+      } else {
+        resultElement.innerText = "Price not available for this ZIP code. Text 412-677-0933 for your specific ZIP code price.";
+      }
+    }
+
+    // Click + Enter key support
+    document.getElementById("lookupBtn").addEventListener("click", lookupPrice);
+    document.getElementById("zipCode").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") lookupPrice();
+    });
+  </script>
+
+  <!-- ✅ Schema: SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Zip Code Price Tool",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "url": "https://pittdes.github.io/Zip-Code-Price-Tool/",
+    "description": "A web tool that looks up Residential Verbal Evaluation pricing by ZIP code.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <!-- ✅ Schema: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is this the final price?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This is the base discounted price for Zelle or Check payment for a Residential Verbal Evaluation in your ZIP code. Additional services (like a written report) may have additional charges."
         }
-    </script>
+      },
+      {
+        "@type": "Question",
+        "name": "What if my ZIP code isn’t listed?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "If pricing isn’t available for your ZIP code, text 412-677-0933 and you’ll receive the correct price."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does pricing vary by ZIP code?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ZIP pricing commonly reflects travel distance, time requirements, and local operating costs. It also helps keep the process consistent and transparent."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you offer a written report?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, a written report is available for an additional charge. Ask when scheduling for current pricing and timing."
+        }
+      }
+    ]
+  }
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
